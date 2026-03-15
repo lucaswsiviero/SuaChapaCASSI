@@ -146,8 +146,10 @@ export default function QuizPage() {
     const allTags = [...state.tags, ...lastTags];
     const allAnswerIds = [...finalAnswers, ...lastSelected.filter((id) => !finalAnswers.includes(id))];
 
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
     try {
-      const res = await fetch("/api/results", {
+      const res = await fetch(`${basePath}/api/results`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

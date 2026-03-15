@@ -92,15 +92,17 @@ function Dashboard() {
   const [totalRows, setTotalRows] = useState(0);
   const PAGE_SIZE = 25;
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   useEffect(() => {
-    fetch("/api/admin/stats")
+    fetch(`${basePath}/api/admin/stats`)
       .then((r) => r.json())
       .then(setStats)
       .catch(console.error);
   }, []);
 
   useEffect(() => {
-    fetch(`/api/admin/results?page=${page}&pageSize=${PAGE_SIZE}`)
+    fetch(`${basePath}/api/admin/results?page=${page}&pageSize=${PAGE_SIZE}`)
       .then((r) => r.json())
       .then((d) => {
         setRows(d.rows ?? []);
@@ -124,7 +126,7 @@ function Dashboard() {
         </h1>
         <div className="flex items-center gap-3">
           <a
-            href="/api/admin/export"
+            href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/api/admin/export`}
             className="px-4 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold transition-colors"
           >
             Exportar CSV
