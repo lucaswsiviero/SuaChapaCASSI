@@ -81,24 +81,36 @@ ADMIN_EMAILS=voce@gmail.com,colega@gmail.com
 
 ## Deploy em VPS (Ubuntu/Debian)
 
-### 1. Build
+> **Porta 3001** — a porta 3000 está reservada para outro projeto no servidor.
+
+### 1. Clone e configure
 
 ```bash
-npm run build
+cd /var/www
+git clone https://github.com/lucaswsiviero/SuaChapaCASSI.git
+cd SuaChapaCASSI
+cp .env.example .env.local
+nano .env.local   # preenche GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_SECRET, ADMIN_EMAILS, NEXTAUTH_URL
 ```
 
-### 2. Instalar PM2
+### 2. Build
 
 ```bash
-npm install -g pm2
+npm install && npm run build
 ```
 
-### 3. Iniciar o servidor
+### 3. PM2 via ecosystem.config.js
+
+O projeto já inclui o arquivo `ecosystem.config.js` configurado para a porta 3001.
 
 ```bash
-pm2 start npm --name "suachapacassi" -- start
+# Primeira vez
+pm2 start ecosystem.config.js
 pm2 save
-pm2 startup
+pm2 startup   # gera o comando systemd — execute o comando que ele imprimir
+
+# Atualizações futuras
+git pull origin main && npm install && npm run build && pm2 reload ecosystem.config.js
 ```
 
 ### 4. Nginx (proxy reverso)
@@ -109,7 +121,7 @@ server {
     server_name suachapacassi.com.br;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:3001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -128,10 +140,8 @@ sudo certbot --nginx -d suachapacassi.com.br
 ### 6. Atualizar (git pull + rebuild)
 
 ```bash
-git pull origin main
-npm install
-npm run build
-pm2 restart suachapacassi
+cd /var/www/SuaChapaCASSI
+git pull origin main && npm install && npm run build && pm2 reload ecosystem.config.js
 ```
 
 ---
