@@ -26,9 +26,10 @@ export const authOptions: NextAuthOptions = {
       if (!user.email) return false;
       return allowedEmails.includes(user.email.toLowerCase());
     },
-    async redirect({ baseUrl }) {
-      // Sempre volta para /admin após login bem-sucedido
-      return `${baseUrl}/admin`;
+    async redirect() {
+      // NEXTAUTH_URL já inclui o subpath: https://sivie.ro/suachapacassi
+      const nextAuthUrl = process.env.NEXTAUTH_URL ?? "";
+      return `${nextAuthUrl}/admin`;
     },
     async session({ session }) {
       return session;
