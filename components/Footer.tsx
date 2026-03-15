@@ -13,7 +13,13 @@ export default function Footer() {
           Esta ferramenta é independente e não possui vínculo com nenhuma das chapas candidatas, com o Banco do Brasil ou com a CASSI — Caixa de Assistência dos Funcionários do Banco do Brasil. Os resultados são meramente indicativos e baseados nas informações fornecidas pelo próprio usuário. Nenhum dado pessoal é coletado ou armazenado.
         </p>
         <p className="text-xs text-gray-400 dark:text-gray-600">
+          Conteúdo e perguntas elaborados com auxílio de Inteligência Artificial.
+        </p>
+        <p className="text-xs text-gray-400 dark:text-gray-600">
           Eleições CASSI 2026 · Votação de 13 a 23/03/2026
+        </p>
+        <p className="text-xs text-gray-400 dark:text-gray-600">
+          Desenvolvido por <span className="font-medium text-gray-500 dark:text-gray-500">Lucas Siviero · F6323199</span>
         </p>
       </div>
     </footer>

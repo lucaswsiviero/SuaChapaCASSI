@@ -12,6 +12,8 @@ const allowedEmails = (process.env.ADMIN_EMAILS ?? "")
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean);
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -29,7 +31,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/admin",
-    error: "/admin",
+    signIn: `${basePath}/admin`,
+    error: `${basePath}/admin`,
   },
 };
