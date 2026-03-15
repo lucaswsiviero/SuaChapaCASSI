@@ -71,7 +71,7 @@ function LoginScreen() {
           Acesso restrito a administradores autorizados.
         </p>
         <button
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/admin` })}
           className="w-full flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
         >
           <GoogleIcon />
