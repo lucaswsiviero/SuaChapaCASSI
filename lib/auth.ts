@@ -26,6 +26,10 @@ export const authOptions: NextAuthOptions = {
       if (!user.email) return false;
       return allowedEmails.includes(user.email.toLowerCase());
     },
+    async redirect({ baseUrl }) {
+      // Sempre volta para /admin após login bem-sucedido
+      return `${baseUrl}/admin`;
+    },
     async session({ session }) {
       return session;
     },
