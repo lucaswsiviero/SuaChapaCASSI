@@ -15,25 +15,6 @@ const allowedEmails = (process.env.ADMIN_EMAILS ?? "")
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const authOptions: NextAuthOptions = {
-  // Cookies com path "/" para funcionar corretamente com subpath no Nginx
-  cookies: {
-    sessionToken: {
-      name: "next-auth.session-token",
-      options: { httpOnly: true, sameSite: "lax", path: "/", secure: true },
-    },
-    callbackUrl: {
-      name: "next-auth.callback-url",
-      options: { sameSite: "lax", path: "/", secure: true },
-    },
-    csrfToken: {
-      name: "next-auth.csrf-token",
-      options: { httpOnly: true, sameSite: "lax", path: "/", secure: true },
-    },
-    state: {
-      name: "next-auth.state",
-      options: { httpOnly: true, sameSite: "lax", path: "/", secure: true, maxAge: 900 },
-    },
-  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
